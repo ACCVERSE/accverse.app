@@ -1,84 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACCVERSE — First continuity layer</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — ACCVERSE</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
-
 <body>
+  <header>
+    <div class="header-container">
+      <div class="logo">ACCVERSE - v1 . first continuity layer</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<header>
-  <div class="header-container">
-    <h1 class="logo">AACCVERSE - v1 . first continuity layer</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+  <main class="hero">
+    <section class="prose">
+      <h2>Contact</h2>
+      <p class="subtitle">ACCVERSE is currently in private testing</p>
 
-<main class="hero">
-  <div class="prose">
-    <h2>Contact</h2>
+      <p>For:</p>
+      <div class="list">
+        <p>• testing requests</p>
+        <p>• professional feedback</p>
+        <p>• thoughtful conversation about the project</p>
+      </div>
 
-    <p class="subtitle">
-      ACCVERSE is currently in private testing
-    </p>
+      <p style="margin-top:34px;">You can reach us here:</p>
+      <p><strong>Email</strong><br/>contact@accverse.app</p>
 
-    <p style="margin-bottom: 28px;">
-      For:
-    </p>
+      <p style="opacity:0.7;margin-top:18px;">
+        We reply selectively to protect the integrity, focus and animal-first framework of this early phase.
+      </p>
 
-    <p style="margin-bottom: 18px;">• testing requests</p>
-    <p style="margin-bottom: 18px;">• professional feedback</p>
-    <p>• thoughtful conversation about the project</p>
+      <!-- FORM -->
+      <form id="accverse-contact-form" class="contact-form" novalidate>
+        <label>
+          <span>First name</span>
+          <small>How should we call you?</small>
+          <input id="firstName" name="firstName" type="text" autocomplete="given-name" />
+        </label>
 
-    <p style="margin-top: 56px; margin-bottom: 14px;">
-      You can reach us here:
-    </p>
+        <label>
+          <span>E-mail</span>
+          <small>(required)</small>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </label>
 
-    <p style="margin-bottom: 14px;">Email</p>
+        <label>
+          <span>Message</span>
+          <small>(required)</small>
+          <textarea id="message" name="message" rows="7" required></textarea>
+        </label>
 
-    <p style="margin-bottom: 0;">
-      <a href="mailto:contact@accverse.app">contact@accverse.app</a>
-    </p>
+        <button id="sendBtn" type="submit">SEND</button>
 
-    <!-- FORM -->
-    <form class="contact-form" method="post">
-      <label>
-        <span>First name</span>
-        <small>How should we call you?</small>
-        <input type="text" name="firstname" autocomplete="given-name">
-      </label>
+        <p id="formStatus" style="margin-top:14px; font-size:14px;"></p>
+      </form>
+    </section>
+  </main>
 
-      <label>
-        <span>E-mail</span>
-        <small>(required)</small>
-        <input type="email" name="email" required autocomplete="email">
-      </label>
+  <footer>
+    <div class="footer-container">
+      <span>ACCVERSE — private testing</span>
+    </div>
+  </footer>
 
-      <label>
-        <span>Message</span>
-        <small>(required)</small>
-        <textarea name="message" rows="5" required></textarea>
-      </label>
-
-      <button type="submit">SEND</button>
-    </form>
-
-    <p style="margin-top: 56px; margin-bottom: 0; opacity: 0.6;">
-      We reply selectively to protect the integrity, focus and animal-first framework of this early phase.
-    </p>
-  </div>
-</main>
-
-<footer>
-  <a href="user-charter.html">User Charter</a>
-</footer>
-
+  <script src="js/contact.js"></script>
 </body>
 </html>
