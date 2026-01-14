@@ -233,51 +233,76 @@ footer a {
   line-height: 1.6;
   opacity: 0.8;
 }
-/* ===== Mobile readability boost ===== */
 @media (max-width: 768px) {
-  /* Layout */
   body {
-    font-size: 18px; /* base text bigger */
-    line-height: 1.65;
+    font-size: 19px;
+    line-height: 1.7;
   }
 
-  /* Main hero title */
   h1 {
-    font-size: 42px;
-    line-height: 1.15;
-    letter-spacing: -0.2px;
+    font-size: 46px;
+    line-height: 1.12;
+    letter-spacing: -0.3px;
   }
 
-  /* Subtitles / paragraphs */
   p {
-    font-size: 18px;
-    line-height: 1.75;
+    font-size: 19px;
+    line-height: 1.8;
   }
 
-  /* If you have a centered content wrapper */
-  .content,
-  .container,
-  main {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  /* Header spacing */
   header {
-    padding: 18px 20px;
+    padding: 20px 22px;
   }
 
   nav a {
-    font-size: 16px;
+    font-size: 16.5px;
+  }
+
+  .content,
+  .container,
+  main {
+    padding-left: 22px;
+    padding-right: 22px;
   }
 }
-
 @media (max-width: 420px) {
   h1 {
-    font-size: 36px;
+    font-size: 40px;
   }
 
   p {
-    font-size: 17px;
+    font-size: 18px;
+  }
+}
+@media (min-width: 769px) {
+  body {
+    font-size: 20px;
+    line-height: 1.8;
+  }
+
+  h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    letter-spacing: -0.4px;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 1.9;
+  }
+
+  header {
+    padding: 32px 48px;
+  }
+
+  nav a {
+    font-size: 18px;
+  }
+
+  .content,
+  .container,
+  main {
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
