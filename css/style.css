@@ -18,87 +18,133 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #e9e3dc; /* light warm background */
+  background: #cfc6f2;
   color: #111;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-/* Page frame */
-.wrapper {
-  min-height: 100svh; /* better on mobile than 100vh */
-  display: flex;
-  justify-content: center;
-  padding: clamp(14px, 3vw, 28px);
-}
-
-.page {
-  width: min(760px, 100%);
-  background: #fff;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
-}
-
 /* =========================
-   Header (ONE LINE ALWAYS)
+   Header (bigger, readable, no truncation)
    ========================= */
 header {
-  padding: clamp(16px, 3vw, 22px) clamp(14px, 3vw, 22px);
+  padding: clamp(18px, 3.2vw, 28px) clamp(16px, 4vw, 32px);
+  background: #a298c7;
 }
 
 .header-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
 }
 
-/* Keep header on one line */
-.logo,
-nav,
-nav a {
-  white-space: nowrap;
+/* Brand block (image + text) */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0; /* important for flex */
 }
 
-/* The “0.50rem vibe”, but responsive */
+/* Mark */
+.brand-mark {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  opacity: 0.85;
+  flex: 0 0 auto;
+}
+
+/* Logo text */
 .logo {
   margin: 0;
   font-weight: 400;
   letter-spacing: 0.06em;
-  font-size: clamp(0.50rem, 1.4vw, 0.75rem);
-  line-height: 1.1;
+  font-size: clamp(0.58rem, 1.5vw, 0.82rem);
+  line-height: 1.2;
 
-  /* Prevent logo from eating all the space */
-  max-width: 62%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* IMPORTANT: do NOT truncate */
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+
+  min-width: 0;
+}
+
+/* “ACCVERSE” must always be visible */
+.brand-name {
+  display: inline-block;
+}
+
+/* Meta part shown on larger screens */
+.brand-meta {
+  display: inline;
+  opacity: 0.82;
 }
 
 /* Nav */
 nav {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: clamp(14px, 3vw, 26px);
-  flex-wrap: nowrap; /* never wrap */
+  flex-wrap: nowrap;
+  margin-right: clamp(6px, 2vw, 18px); /* pull slightly left */
 }
 
 nav a {
   color: inherit;
   text-decoration: none;
-  font-size: clamp(0.50rem, 1.4vw, 0.75rem);
+  font-size: clamp(0.58rem, 1.5vw, 0.82rem);
   line-height: 1.1;
   padding-bottom: 2px;
   border-bottom: 1px solid rgba(0,0,0,0.18);
+  white-space: nowrap;
 }
 
 nav a:hover {
   border-bottom-color: rgba(0,0,0,0.45);
 }
 
+/* ✅ Mobile: keep header on one line, but do not cut ACCVERSE
+   We hide ONLY the meta part. */
+@media (max-width: 520px) {
+  .brand-meta {
+    display: none;
+  }
+}
+
+/* Ultra-small phones safety */
+@media (max-width: 360px) {
+  header {
+    padding: 16px 14px;
+  }
+
+  .brand-mark {
+    width: 14px;
+    height: 14px;
+  }
+
+  .logo,
+  nav a {
+    font-size: 0.56rem;
+  }
+
+  nav {
+    gap: 12px;
+  }
+}
+
 /* =========================
-   Hero / Prose layout
+   Hero / Prose
    ========================= */
 .hero {
-  /* keeps the content visually centered without being too “empty” */
   padding: clamp(46px, 9vw, 86px) 0 clamp(56px, 10vw, 96px);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding: clamp(28px, 4.5vw, 54px) 0 clamp(56px, 7vw, 90px);
+  }
 }
 
 .prose {
@@ -108,22 +154,40 @@ nav a:hover {
   padding: 0 clamp(16px, 4vw, 22px);
 }
 
-/* Titles */
+/* Headings */
 .prose h1,
-.prose h2 {
+.prose h2,
+.prose h3 {
   margin: 0 0 clamp(18px, 4vw, 28px);
   font-weight: 400;
   letter-spacing: 0.01em;
 }
 
-/* Main big title (index / about) */
-.prose h1,
-.prose h2 {
-  font-size: clamp(42px, 9.4vw, 74px);
-  line-height: 1.08;
+/* H1 */
+.prose h1 {
+  font-size: clamp(44px, 9.8vw, 76px);
+  line-height: 1.06;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Optional subtitle line */
+@media (min-width: 1024px) {
+  .prose h1 {
+    max-width: 760px;
+    line-height: 1.14;
+  }
+}
+
+/* H2 */
+.prose h2 {
+  font-size: clamp(28px, 6.2vw, 44px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+  margin-top: clamp(22px, 5.2vw, 54px);
+}
+
+/* Subtitle */
 .prose .subtitle {
   margin: 0 0 clamp(18px, 4vw, 28px);
   font-size: clamp(16px, 3.8vw, 18px);
@@ -133,13 +197,33 @@ nav a:hover {
 
 /* Paragraphs */
 .prose p {
-  margin: 0 0 clamp(18px, 4.5vw, 30px);
-  font-size: clamp(16px, 3.9vw, 18px); /* IMPORTANT: bigger than before */
+  margin: 0 0 clamp(18px, 4.8vw, 32px);
+  font-size: clamp(16px, 3.9vw, 18px);
   line-height: 1.85;
-  opacity: 0.82;
+  opacity: 0.88;
 }
 
-/* Links (subtle premium) */
+.prose .pivot {
+  font-size: clamp(17px, 4.1vw, 19px);
+  line-height: 1.75;
+  opacity: 0.98;
+  margin-top: clamp(22px, 5vw, 36px);
+  margin-bottom: clamp(22px, 5vw, 36px);
+}
+
+.prose .conclusion {
+  opacity: 0.90;
+  margin-top: clamp(22px, 5vw, 40px);
+}
+
+.prose .status {
+  margin-top: clamp(28px, 6vw, 60px);
+  font-size: clamp(14px, 3.5vw, 15px);
+  letter-spacing: 0.04em;
+  opacity: 0.72;
+}
+
+/* Links */
 .prose a {
   color: inherit;
   text-decoration: none;
@@ -151,20 +235,17 @@ nav a:hover {
   border-bottom-color: rgba(0,0,0,0.55);
 }
 
-/* =========================
-   Footer
-   ========================= */
+/* Footer */
 footer {
   padding: clamp(18px, 4vw, 24px);
   text-align: center;
   font-size: clamp(0.58rem, 1.7vw, 0.78rem);
   letter-spacing: 0.04em;
   opacity: 0.72;
+  background: #a298c7;
 }
 
-/* =========================
-   CONTACT FORM
-   ========================= */
+/* Contact form (kept as-is) */
 .contact-form {
   margin-top: clamp(44px, 8vw, 80px);
   text-align: left;
@@ -223,9 +304,7 @@ footer {
   opacity: 0.9;
 }
 
-/* =========================
-   MINI LIST STYLE
-   ========================= */
+/* Mini list */
 .list {
   margin-bottom: clamp(34px, 6vw, 56px);
 }
@@ -234,25 +313,5 @@ footer {
   margin: 0 0 14px;
   font-size: clamp(16px, 3.9vw, 18px);
   line-height: 1.65;
-  opacity: 0.82;
+  opacity: 0.88;
 }
-
-/* =========================
-   Ultra-small phones safety
-   (keeps header one line)
-   ========================= */
-@media (max-width: 360px) {
-  .logo {
-    max-width: 56%;
-    font-size: 0.50rem;
-  }
-
-  nav a {
-    font-size: 0.50rem;
-  }
-
-  nav {
-    gap: 12px;
-  }
-}
-
