@@ -66,13 +66,14 @@
         min-width:0;
       }
       .brandMark{
-        width:28px; height:28px;
-        border-radius:9px;
-        background: radial-gradient(circle at 30% 30%, rgba(207,198,242,.40), rgba(255,255,255,.06));
-        border:1px solid rgba(255,255,255,.14);
-        box-shadow: var(--shadow2);
+        width:38px; height:38px; border-radius:12px;
+        border:1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.05);
+        display:grid; place-items:center;
+        overflow:hidden;
         flex:0 0 auto;
       }
+      .brandMark img{width:100%;height:100%;object-fit:cover;display:block}
       .brandText{ display:flex; flex-direction:column; line-height:1.1; min-width:0; }
       .brandName{
         font-weight:750;
@@ -263,7 +264,9 @@
       <header>
         <div class="header-inner">
           <a class="brand" href="index.html" aria-label="ACCVERSE home">
-            <div class="brandMark" aria-hidden="true"></div>
+            <div class="brandMark" aria-hidden="true">
+              <img src="assets/accverse-app-avatar.png" alt="" />
+            </div>
             <div class="brandText">
               <div class="brandName">ACCVERSE</div>
               <div class="brandTag">V1 · closed test</div>
@@ -307,7 +310,7 @@
             </p>
 
             <div class="ctaRow">
-              <a class="btn btnPrimary" href="https://paypal.me/ACCVERSE.app" target="_blank" rel="noopener">
+              <a class="btn btnPrimary" href="https://paypal.me/ACCVERSEapp" target="_blank" rel="noopener">
                 Contribute via PayPal
               </a>
               <a class="btn" href="contact.html">Questions? Contact us</a>
