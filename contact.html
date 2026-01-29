@@ -1,85 +1,598 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — ACCVERSE</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>ACCVERSE — Help & Contact</title>
+    <meta name="description" content="Help & Contact for ACCVERSE. Questions, feedback, and reporting during closed testing." />
 
-<body>
- <header>
-  <div class="header-container">
+    <style>
+      :root{
+        --bg:#05070B;               /* app black */
+        --panel: rgba(255,255,255,.06);
+        --panel2: rgba(255,255,255,.09);
+        --line: rgba(255,255,255,.10);
 
-    <div class="brand">
-      <img src="assets/accverse-logo.png" alt="ACCVERSE mark" class="brand-mark">
-      <h1 class="logo">
-        <span class="brand-name">ACCVERSE - v1</span>
-        <span class="brand-meta">.first continuity layer</span>
-      </h1>
+        --text: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.70);
+        --muted2: rgba(255,255,255,.58);
+
+        --radius: 22px;
+        --radius2: 28px;
+
+        --shadow: 0 18px 50px rgba(0,0,0,.55);
+        --shadow2: 0 12px 30px rgba(0,0,0,.40);
+
+        --max: 1080px;
+
+        --a: rgba(110,168,255,.95); /* app-like blue */
+        --ok: rgba(99,230,190,.95);
+        --w: rgba(255,212,59,.95);
+      }
+
+      *,:before,:after{box-sizing:border-box}
+      html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+      body{
+        margin:0; min-height:100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+      a{color:inherit}
+      .wrap{min-height:100svh;display:flex;flex-direction:column}
+
+      .container{
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      /* ===== Header (menu only) ===== */
+      header{
+        position:sticky; top:0; z-index:50;
+        background: rgba(5,7,11,.72);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .headerInner{
+        display:flex; align-items:center; justify-content:space-between;
+        gap:14px; padding:14px 0;
+      }
+
+      .brand{
+        display:flex; align-items:center; gap:12px;
+        text-decoration:none;
+        min-width:0;
+      }
+      .brandAvatar{
+        width:38px; height:38px; border-radius:12px;
+        border:1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.05);
+        display:grid; place-items:center;
+        overflow:hidden;
+        flex:0 0 auto;
+      }
+      .brandAvatar img{width:100%;height:100%;object-fit:cover;display:block}
+      .brandText{min-width:0; line-height:1.05}
+      .brandTitle{font-weight:750; letter-spacing:.05em; font-size:.98rem}
+      .brandSub{color:var(--muted); font-size:.82rem; margin-top:2px}
+
+      .headerActions{display:flex; align-items:center; gap:10px}
+
+      .iconBtn{
+        appearance:none; border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+        color: var(--text);
+        width:44px; height:44px;
+        border-radius: 999px;
+        display:grid; place-items:center;
+        cursor:pointer;
+      }
+      .iconBtn:hover{
+        background: rgba(255,255,255,.08);
+        border-color: rgba(255,255,255,.22);
+      }
+
+      .menuPanel{
+        display:none;
+        border-top:1px solid rgba(255,255,255,.08);
+        background: rgba(5,7,11,.92);
+      }
+      .menuPanel.open{display:block}
+      .menuGrid{
+        padding: 12px 0 18px;
+        display:grid;
+        gap:10px;
+      }
+      .menuLink{
+        text-decoration:none;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+      }
+      .menuLink:hover{background: rgba(255,255,255,.07)}
+
+      main{flex:1}
+      .section{padding: 18px 0}
+
+      /* ===== Panels / Cards ===== */
+      .panel{
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.05);
+        box-shadow: var(--shadow);
+        overflow:hidden;
+        padding: 18px;
+      }
+      .panel.strong{
+        background: rgba(255,255,255,.07);
+        border-color: rgba(255,255,255,.14);
+      }
+
+      .kicker{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size: .92rem;
+        margin: 0 0 14px;
+      }
+
+      h1{
+        margin:0 0 10px;
+        font-size: clamp(26px, 4.6vw, 44px);
+        line-height: 1.10;
+        letter-spacing: -0.02em;
+      }
+      .subtitle{
+        margin:0;
+        color: var(--muted);
+        line-height: 1.75;
+        max-width: 70ch;
+        font-size: 1.02rem;
+      }
+
+      .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+      .pill{
+        display:inline-flex; align-items:center; gap:8px;
+        padding:8px 10px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size:.90rem;
+      }
+      .dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.35)}
+      .dot.ok{background:var(--ok)}
+      .dot.w{background:var(--w)}
+      .dot.a{background:var(--a)}
+
+      .grid{
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 16px;
+        align-items:start;
+      }
+      @media (max-width: 980px){
+        .grid{grid-template-columns:1fr}
+      }
+
+      .steps{list-style:none;margin:0;padding:0}
+      .steps li{
+        padding: 12px 12px;
+        margin: 10px 0;
+        border-radius: 16px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        color: rgba(255,255,255,.86);
+        line-height: 1.6;
+        font-size: .98rem;
+      }
+
+      .card{
+        margin-top:14px;
+        padding: 16px;
+        border-radius: var(--radius);
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        box-shadow: var(--shadow2);
+      }
+      .card h3{margin:0 0 8px;font-size:1.05rem}
+      .card p{margin:0;color:var(--muted);line-height:1.7}
+
+      .kv{
+        display:grid;
+        grid-template-columns: 1fr auto;
+        gap:10px;
+        align-items:center;
+        padding: 12px 12px;
+        border-radius: 16px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        margin-top: 10px;
+      }
+      .kv .k{color:rgba(255,255,255,.86);font-weight:650}
+      .kv .v{color:var(--muted)}
+      .link{
+        text-decoration:none;
+        border-bottom:1px solid rgba(255,255,255,.25);
+        padding-bottom:2px;
+      }
+      .link:hover{border-bottom-color:rgba(255,255,255,.45)}
+
+      .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; align-items:center}
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        text-decoration:none;
+        border-radius: 999px;
+        padding: 12px 16px;
+        font-weight: 650;
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+        color: var(--text);
+        cursor:pointer;
+      }
+      .btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22)}
+      .btn.primary{
+        background: rgba(110,168,255,.18);
+        border-color: rgba(110,168,255,.30);
+      }
+      .btn.primary:hover{background: rgba(110,168,255,.24)}
+
+      .hint{color:var(--muted2);font-size:.95rem}
+
+      details{
+        margin-top: 14px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        padding-top: 12px;
+      }
+      summary{
+        cursor:pointer;
+        color: rgba(255,255,255,.90);
+        font-weight:650;
+        list-style:none;
+      }
+      summary::-webkit-details-marker{display:none}
+
+      .formGrid{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 12px;
+        background-color: #05070B;
+      }
+      @media (max-width: 720px){
+        .formGrid{grid-template-columns:1fr}
+      }
+      .input{
+        width:100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        padding: 12px 12px;
+        font-size: 1rem;
+        outline:none;
+      }
+      .input:focus{
+        border-color: rgba(110,168,255,.42);
+        
+        box-shadow: 0 0 0 3px rgba(110,168,255,.14);
+      }
+      textarea.input{resize:vertical; min-height: 140px}
+
+      .mono{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+        font-size: .92rem;
+        color: rgba(255,255,255,.62);
+      }
+
+      /* ===== Footer ===== */
+      footer{
+        border-top: 1px solid rgba(255,255,255,.10);
+        padding: 18px 0;
+        background: rgba(0,0,0,.18);
+      }
+      .footerInner{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 12px;
+        flex-wrap:wrap;
+        color: var(--muted2);
+        font-size: .95rem;
+      }
+      .footerLinks{display:flex;gap:12px;flex-wrap:wrap}
+      .footerLink{
+        text-decoration:none;
+        color: var(--muted);
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.03);
+      }
+      .footerLink:hover{color:var(--text);background:rgba(255,255,255,.06)}
+      /* Select dark theme (desktop browsers only) */
+/* Make native selects darker (best-effort on desktop) */
+.input{
+  background-color: #05070B;
+  color: rgba(255,255,255,.92);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+/* Try to force dark dropdown list */
+.input option{
+  background-color: #05070B;
+  color: rgba(255,255,255,.92);
+}
+
+/* Reduce the harsh native highlight where supported */
+.input:focus{
+  outline: none;
+  border-color: rgba(207,198,242,.40);
+  box-shadow: 0 0 0 3px rgba(207,198,242,.14);
+}
+
+/* Firefox-only: makes the dropdown follow dark color-scheme better */
+.input{
+  color-scheme: dark;
+}
+
+
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <!-- HEADER -->
+      <header>
+        <div class="container">
+          <div class="headerInner">
+            <a class="brand" href="index.html#top" aria-label="ACCVERSE home">
+              <!-- Optional: replace the image path if you have an icon -->
+              <div class="brandAvatar" aria-hidden="true">
+                <img src="assets/accverse-app-avatar.png" alt="" />
+              </div>
+              <div class="brandText">
+                <div class="brandTitle">ACCVERSE</div>
+                <div class="brandSub">V1 · closed test</div>
+              </div>
+            </a>
+
+            <div class="headerActions">
+              <button id="menuBtn" class="iconBtn" type="button" aria-label="Menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16"
+                        stroke="rgba(255,255,255,.88)"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="menuPanel" class="menuPanel" aria-label="Menu">
+          <div class="container">
+            <div class="menuGrid">
+              <a class="menuLink" href="index.html#how">How it works</a>
+              <a class="menuLink" href="index.html#v1">V1 features</a>
+              <a class="menuLink" href="index.html#access">Request access</a>
+             
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="top">
+        <div class="container">
+          <!-- HERO -->
+          <section class="section">
+            <div class="panel">
+              <div class="kicker">Help & Contact</div>
+              <h1>Clarity, continuity, and respectful testing.</h1>
+              <p class="subtitle">
+                ACCVERSE is an animal-first digital ecosystem.
+                Our priority is clarity, continuity, and respect — for animals and for the humans who represent them.
+                This section exists to help you understand the platform, report issues, and contact us when necessary.
+              </p>
+
+              <div class="pills" aria-label="Contact types">
+                <span class="pill"><span class="dot ok"></span> Technical issue</span>
+                <span class="pill"><span class="dot a"></span> Feedback during testing</span>
+                <span class="pill"><span class="dot w"></span> Report content</span>
+                <span class="pill"><span class="dot"></span> Rules & principles</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTENT -->
+          <section class="section">
+            <div class="grid">
+              <!-- Left -->
+              <div class="panel">
+                <div class="kicker">When to contact us</div>
+                <ul class="steps">
+                  <li>— encounter a technical issue</li>
+                  <li>— have a question about how ACCVERSE works</li>
+                  <li>— need clarification about rules or principles</li>
+                  <li>— wish to report inappropriate or out-of-scope content</li>
+                  <li>— want to provide constructive feedback during testing</li>
+                </ul>
+
+                <div class="card">
+                  <h3>Platform status</h3>
+                  <p>
+                    ACCVERSE is currently evolving and may be:
+                    — in private testing
+                    — in limited access
+                    — in phased deployment
+                    Features may change as the platform grows.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right -->
+              <aside class="panel strong">
+                <div class="kicker">Contact</div>
+
+                <div class="kv">
+                  <div class="k">Email</div>
+                  <div class="v"><a class="link" href="mailto:contact@accverse.app">contact@accverse.app</a></div>
+                </div>
+
+                <div class="ctaRow">
+                  <button class="btn primary" type="button" id="copyEmail">Copy email</button>
+                  <a class="btn" href="mailto:contact@accverse.app?subject=ACCVERSE%20%5BV1%20Closed%20Test%5D%20Help">Open email</a>
+                </div>
+
+                <p class="hint" id="copyHint" style="margin:10px 0 0">
+                  We aim to respond with care and neutrality.
+                </p>
+
+                <details>
+                  <summary>What ACCVERSE is not</summary>
+                  <div style="margin-top:10px;color:rgba(255,255,255,.84);line-height:1.7">
+                    <p style="margin:0 0 10px">ACCVERSE does not provide:</p>
+                    <ul style="margin:0;padding-left:18px">
+                      <li>medical advice</li>
+                      <li>legal advice</li>
+                      <li>emergency support</li>
+                    </ul>
+                    <p style="margin:10px 0 0">
+                      Decisions concerning animals always remain the responsibility of their human representatives
+                      and must comply with local laws and regulations.
+                    </p>
+                  </div>
+                </details>
+              </aside>
+            </div>
+          </section>
+
+          <!-- FORM (mailto) -->
+          <section class="section">
+            <div class="panel">
+              <div class="kicker">Send a message</div>
+              <p class="subtitle" style="margin-bottom:12px">
+                This form prepares an email and opens your mail app with everything ready.
+                No data is stored on this website.
+              </p>
+
+              <div class="formGrid">
+                <div>
+                  <label class="mono" for="topic" style="display:block;margin-bottom:6px">Topic</label>
+                  <select id="topic" class="input" aria-label="Topic">
+                    <option value="Bug / technical issue">Bug / technical issue</option>
+                    <option value="Feedback during testing">Feedback during testing</option>
+                    <option value="Report content">Report content</option>
+                    <option value="Rules / principles">Rules / principles</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="mono" for="device" style="display:block;margin-bottom:6px">Device (optional)</label>
+                  <input id="device" class="input" type="text" placeholder="e.g., Android 13 — Moto G42" />
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <label class="mono" for="message" style="display:block;margin-bottom:6px">Message</label>
+                <textarea id="message" class="input" rows="6"
+                  placeholder="Describe what happened, what you expected, and any useful context."></textarea>
+              </div>
+
+              <div class="ctaRow">
+                <button class="btn primary" type="button" id="sendMail">Open email with message</button>
+                <button class="btn" type="button" id="clearForm">Clear</button>
+                <span class="hint">No backend · mailto only</span>
+              </div>
+
+              <p class="mono" style="margin:12px 0 0">
+                Tip: For bugs, include steps to reproduce + screenshots if possible.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        <div class="container">
+          <div class="footerInner">
+            <div>© <span id="y"></span> ACCVERSE</div>
+            <div class="footerLinks">
+              <a class="footerLink" href="index.html#how">How it works</a>
+              <a class="footerLink" href="index.html#access">Request access</a>
+              <a class="footerLink" href="contact.html">Help & Contact</a>
+              <a class="footerLink" href="support.html">Support</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
 
-  </div>
-</header>
+      // menu toggle
+      const btn = document.getElementById("menuBtn");
+      const panel = document.getElementById("menuPanel");
+      btn?.addEventListener("click", () => panel.classList.toggle("open"));
+      panel?.addEventListener("click", (e) => {
+        if (e.target.closest("a")) panel.classList.remove("open");
+      });
 
-  <main class="hero">
-    <section class="prose">
-      <h2>Contact</h2>
-      <p class="subtitle">ACCVERSE is currently in private testing</p>
+      // copy email
+      const copyBtn = document.getElementById("copyEmail");
+      const copyHint = document.getElementById("copyHint");
+      copyBtn?.addEventListener("click", async () => {
+        try{
+          await navigator.clipboard.writeText("contact@accverse.app");
+          copyHint.textContent = "Copied: contact@accverse.app";
+        }catch{
+          copyHint.textContent = "Copy not allowed here. Please copy manually: contact@accverse.app";
+        }
+      });
 
-      <p>For:</p>
-      <div class="list">
-        <p>• testing requests</p>
-        <p>• professional feedback</p>
-        <p>• thoughtful conversation about the project</p>
-      </div>
+      // mailto form
+      const sendBtn = document.getElementById("sendMail");
+      const clearBtn = document.getElementById("clearForm");
 
-      <p style="margin-top:34px;">You can reach us here:</p>
-      <p><strong>Email</strong><br/>contact@accverse.app</p>
+      function buildMailto(){
+        const topic = document.getElementById("topic").value || "Help";
+        const device = document.getElementById("device").value || "";
+        const message = document.getElementById("message").value || "";
 
-      <p style="opacity:0.7;margin-top:18px;">
-        We reply selectively to protect the integrity, focus and animal-first framework of this early phase.
-      </p>
+        const subject = `ACCVERSE [V1 Closed Test] — ${topic}`;
+        const body = [
+          `Topic: ${topic}`,
+          `Device: ${device || ""}`,
+          ``,
+          message || "(Write your message here)",
+          ``,
+          `—`,
+          `ACCVERSE is animal-first. Please keep reports factual when possible.`
+        ].join("\n");
 
-      <!-- FORM -->
-      <form id="accverse-contact-form" class="contact-form" novalidate>
-        <label>
-          <span>First name</span>
-          <small>How should we call you?</small>
-          <input id="firstName" name="firstName" type="text" autocomplete="given-name" />
-        </label>
+        return `mailto:contact@accverse.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
 
-        <label>
-          <span>E-mail</span>
-          <small>(required)</small>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-        </label>
+      sendBtn?.addEventListener("click", () => {
+        window.location.href = buildMailto();
+      });
 
-        <label>
-          <span>Message</span>
-          <small>(required)</small>
-          <textarea id="message" name="message" rows="7" required></textarea>
-        </label>
-
-        <button id="sendBtn" type="submit">SEND</button>
-
-        <p id="formStatus" style="margin-top:14px; font-size:14px;"></p>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-container">
-      <span>ACCVERSE — private testing</span>
-    </div>
-  </footer>
-
-  <script src="js/contact.js"></script>
-</body>
+      clearBtn?.addEventListener("click", () => {
+        document.getElementById("device").value = "";
+        document.getElementById("message").value = "";
+        document.getElementById("topic").value = "Bug / technical issue";
+      });
+    </script>
+  </body>
 </html>

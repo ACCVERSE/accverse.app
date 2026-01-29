@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>ACCVERSE — Support</title>
+    <meta
+      name="description"
+      content="Support ACCVERSE — voluntary contributions to sustain development and infrastructure."
+    />
+
+    <style>
+      :root{
+        --bg:#05070B;
+        --panel:rgba(255,255,255,.06);
+        --panel2:rgba(255,255,255,.09);
+        --line:rgba(255,255,255,.10);
+        --text:rgba(255,255,255,.92);
+        --muted:rgba(255,255,255,.68);
+        --muted2:rgba(255,255,255,.58);
+
+        --accent:#cfc6f2;
+        --accent2:#a298c7;
+
+        --radius:22px;
+        --shadow:0 18px 50px rgba(0,0,0,.55);
+        --shadow2:0 12px 30px rgba(0,0,0,.40);
+
+        --max:1020px;
+      }
+
+      *{ box-sizing:border-box }
+      html,body{ height:100% }
+      body{
+        margin:0;
+        color:var(--text);
+        font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        background: var(--bg);
+      }
+      a{ color:inherit; text-decoration:none }
+      a:hover{ text-decoration:underline }
+
+      .wrap{ min-height:100svh; display:flex; flex-direction:column; }
+
+      /* Header */
+      header{
+        position:sticky; top:0; z-index:50;
+        background: rgba(5,7,11,.82);
+        backdrop-filter: blur(10px);
+        border-bottom:1px solid rgba(255,255,255,.08);
+      }
+      .header-inner{
+        max-width:var(--max);
+        margin:0 auto;
+        padding:14px 16px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        min-width:0;
+      }
+      .brandMark{
+        width:28px; height:28px;
+        border-radius:9px;
+        background: radial-gradient(circle at 30% 30%, rgba(207,198,242,.40), rgba(255,255,255,.06));
+        border:1px solid rgba(255,255,255,.14);
+        box-shadow: var(--shadow2);
+        flex:0 0 auto;
+      }
+      .brandText{ display:flex; flex-direction:column; line-height:1.1; min-width:0; }
+      .brandName{
+        font-weight:750;
+        letter-spacing:.06em;
+        font-size:14px;
+        white-space:nowrap;
+      }
+      .brandTag{
+        font-size:12px;
+        color:var(--muted);
+        white-space:nowrap;
+      }
+
+      .menuBtn{
+        width:44px; height:44px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.06);
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+      }
+      .menuBtn:hover{ background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20); }
+      .menuIcon{
+        width:18px; height:18px;
+        display:block;
+        position:relative;
+      }
+      .menuIcon::before,
+      .menuIcon::after,
+      .menuIcon span{
+        content:"";
+        position:absolute;
+        left:0; right:0;
+        height:2px;
+        background: rgba(255,255,255,.85);
+        border-radius:2px;
+      }
+      .menuIcon::before{ top:2px; }
+      .menuIcon span{ top:8px; }
+      .menuIcon::after{ top:14px; }
+
+      .menuPanel{
+        display:none;
+        border-bottom:1px solid rgba(255,255,255,.08);
+        background: rgba(5,7,11,.92);
+      }
+      .menuPanel.open{ display:block; }
+      .menuInner{
+        max-width:var(--max);
+        margin:0 auto;
+        padding:12px 16px 16px;
+        display:grid;
+        gap:10px;
+      }
+      .menuLink{
+        padding:12px 14px;
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.05);
+        color: var(--text);
+        text-decoration:none;
+      }
+      .menuLink:hover{ background: rgba(255,255,255,.08); }
+
+      /* Main */
+      main{ flex:1; }
+      .container{
+        max-width:var(--max);
+        margin:0 auto;
+        padding:22px 16px 56px;
+      }
+
+      .panel{
+        background: var(--panel);
+        border:1px solid rgba(255,255,255,.10);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding:18px;
+      }
+
+      h1{
+        margin:0 0 10px;
+        font-size: clamp(26px, 4.5vw, 42px);
+        line-height:1.1;
+        letter-spacing:-.01em;
+      }
+      .lead{
+        margin:0;
+        color:var(--muted);
+        font-size:15px;
+        line-height:1.75;
+        max-width:70ch;
+      }
+
+      .bullets{
+        margin:14px 0 0;
+        padding:0;
+        list-style:none;
+        display:grid;
+        gap:10px;
+        max-width:70ch;
+      }
+      .bullets li{
+        padding:12px 12px;
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        color: rgba(255,255,255,.86);
+      }
+      .dash{ color: var(--muted2); margin-right:10px; }
+
+      .ctaRow{
+        margin-top:16px;
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding:12px 16px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.06);
+        color: var(--text);
+        font-weight:650;
+        cursor:pointer;
+        text-decoration:none;
+      }
+      .btn:hover{ background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.20); }
+      .btnPrimary{
+        background: linear-gradient(180deg, rgba(207,198,242,.22), rgba(207,198,242,.08));
+        border-color: rgba(207,198,242,.30);
+      }
+      .btnPrimary:hover{
+        background: linear-gradient(180deg, rgba(207,198,242,.28), rgba(207,198,242,.10));
+      }
+
+      .note{
+        margin-top:14px;
+        color: var(--muted2);
+        font-size:13px;
+        line-height:1.7;
+        max-width:70ch;
+      }
+
+      /* Footer */
+      footer{
+        border-top:1px solid rgba(255,255,255,.08);
+        background: rgba(0,0,0,.18);
+      }
+      .footer-inner{
+        max-width:var(--max);
+        margin:0 auto;
+        padding:16px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px 16px;
+        align-items:center;
+        justify-content:space-between;
+        color:var(--muted);
+        font-size:13px;
+      }
+      .footer-links{ display:flex; gap:10px; flex-wrap:wrap; }
+      .pillLink{
+        padding:10px 12px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        text-decoration:none;
+        color:var(--muted);
+      }
+      .pillLink:hover{ color:var(--text); background: rgba(255,255,255,.07); }
+
+      @media (max-width:520px){
+        .menuBtn{ width:42px; height:42px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="header-inner">
+          <a class="brand" href="index.html" aria-label="ACCVERSE home">
+            <div class="brandMark" aria-hidden="true"></div>
+            <div class="brandText">
+              <div class="brandName">ACCVERSE</div>
+              <div class="brandTag">V1 · closed test</div>
+            </div>
+          </a>
+
+          <button class="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+            <i class="menuIcon" aria-hidden="true"><span></span></i>
+          </button>
+        </div>
+
+        <div id="menu" class="menuPanel" role="navigation" aria-label="Menu">
+          <div class="menuInner">
+            <a class="menuLink" href="index.html#how">How it works</a>
+            <a class="menuLink" href="index.html#today">V1</a>
+            <a class="menuLink" href="index.html#access">Request access</a>
+          
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="container">
+          <section class="panel">
+            <h1>Support ACCVERSE</h1>
+            <p class="lead">
+              ACCVERSE is an independent project built with limited resources.
+              Its development relies primarily on time, commitment, and personal investment.
+              If you believe in the vision of ACCVERSE and wish to support the project, you may choose to contribute voluntarily.
+            </p>
+
+            <ul class="bullets" aria-label="Support terms">
+              <li><span class="dash">—</span> does not represent an investment</li>
+              <li><span class="dash">—</span> does not grant ownership, rights, or influence</li>
+              <li><span class="dash">—</span> does not create any obligation in return</li>
+            </ul>
+
+            <p class="note">
+              ACCVERSE remains independent, animal-first, and non-commercial in its core principles.
+              Any contribution helps sustain development and infrastructure. Thank you for your consideration.
+            </p>
+
+            <div class="ctaRow">
+              <a class="btn btnPrimary" href="https://paypal.me/ACCVERSE.app" target="_blank" rel="noopener">
+                Contribute via PayPal
+              </a>
+              <a class="btn" href="contact.html">Questions? Contact us</a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-inner">
+          <div>© <span id="y"></span> ACCVERSE</div>
+          <div class="footer-links">
+            <a class="pillLink" href="index.html#how">How it works</a>
+            <a class="pillLink" href="index.html#access">Request access</a>
+            <a class="pillLink" href="contact.html">Help &amp; Contact</a>
+            <a class="pillLink" href="support.html">Support</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // year
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // menu toggle
+      const btn = document.querySelector(".menuBtn");
+      const panel = document.getElementById("menu");
+
+      btn.addEventListener("click", () => {
+        const isOpen = panel.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    </script>
+  </body>
+</html>

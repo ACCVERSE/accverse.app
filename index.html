@@ -1,66 +1,910 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACCVERSE — First continuity layer</title>
-  <link rel="stylesheet" href="css/style.css?v=3">
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>ACCVERSE — V1 closed test</title>
+    <meta
+      name="description"
+      content="ACCVERSE is a calm, animal-first space where humans post as representatives — without performance pressure."
+    />
 
-<body>
+    <style>
+      /* =========================
+         ACCVERSE — site2 (app-like)
+         Single background, soft cards
+         ========================= */
 
-<header>
-  <div class="header-container">
+      :root{
+        /* App-like base */
+        --bg:#05070B;
+        --bg2:#070A10;
 
-    <div class="brand">
-      <img src="assets/accverse-logo.png" alt="ACCVERSE mark" class="brand-mark">
-      <h1 class="logo">
-        <span class="brand-name">ACCVERSE - v1</span>
-        <span class="brand-meta">.first continuity layer</span>
-      </h1>
+        --card:#12151C;
+        --card2:#151A22;
+
+        --line:rgba(255,255,255,.10);
+        --line2:rgba(255,255,255,.07);
+
+        --text:rgba(255,255,255,.92);
+        --muted:rgba(255,255,255,.66);
+        --muted2:rgba(255,255,255,.52);
+
+        /* App blue */
+        --blue:#6FA8FF;
+        --blue2:#4F86E6;
+
+        --danger:#ff6b6b;
+
+        --r:22px;
+        --r2:28px;
+
+        --shadow: 0 18px 55px rgba(0,0,0,.55);
+        --shadow2: 0 12px 28px rgba(0,0,0,.40);
+
+        --max:1080px;
+
+        /* Header height for safe scroll */
+        --headerH:72px;
+      }
+
+      *{ box-sizing:border-box }
+      html,body{ height:100% }
+      html{ -webkit-text-size-adjust:100%; text-size-adjust:100% }
+
+      body{
+        margin:0;
+        color:var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+      }
+
+      a{ color:inherit; text-decoration:none }
+      a:hover{ text-decoration:none }
+
+      .wrap{
+        min-height:100svh;
+        display:flex;
+        flex-direction:column;
+      }
+
+      .container{
+        width:min(var(--max), calc(100% - 28px));
+        margin:0 auto;
+      }
+
+      /* =========================
+         Header (app-like)
+         ========================= */
+      header{
+        position:sticky;
+        top:0;
+        z-index:50;
+        background: rgba(5,7,11,.84);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line2);
+      }
+
+      .headerInner{
+        height: var(--headerH);
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        min-width:0;
+      }
+
+      .brandAvatar{
+        width:40px;
+        height:40px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        overflow:hidden;
+        background: #0b0f16;
+        flex:0 0 auto;
+      }
+      .brandAvatar img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      }
+
+      .brandText{
+        display:flex;
+        flex-direction:column;
+        line-height:1.1;
+        min-width:0;
+      }
+      .brandTitle{
+        font-weight:800;
+        font-size:18px;
+        letter-spacing:.01em;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .brandSub{
+        color:var(--muted);
+        font-size:12.5px;
+        margin-top:4px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .headerActions{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:0 0 auto;
+      }
+
+      .iconBtn{
+        width:44px;
+        height:44px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+      }
+      .iconBtn:hover{
+        background: rgba(255,255,255,.07);
+        border-color: rgba(255,255,255,.16);
+      }
+
+      .badge{
+        position:relative;
+      }
+      .badge::after{
+        content:"";
+        position:absolute;
+        top:10px;
+        right:11px;
+        width:8px;
+        height:8px;
+        border-radius:99px;
+        background: var(--blue);
+        box-shadow: 0 0 0 3px rgba(5,7,11,.9);
+        opacity:.9;
+      }
+
+      /* Mobile menu panel */
+      .menuPanel{
+        display:none;
+        border-bottom: 1px solid var(--line2);
+        background: rgba(5,7,11,.92);
+      }
+      .menuPanel.open{ display:block; }
+      .menuGrid{
+        padding: 12px 0 16px;
+        display:grid;
+        gap:10px;
+      }
+
+      .menuLink{
+        padding: 12px 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+      }
+      .menuLink:hover{ background: rgba(255,255,255,.07); }
+
+      /* Desktop nav (optional) */
+      .navDesktop{
+        display:none;
+        align-items:center;
+        gap:10px;
+      }
+      .navDesktop a{
+        color: var(--muted);
+        padding: 10px 12px;
+        border-radius: 999px;
+        border:1px solid transparent;
+        background: transparent;
+        font-size:14px;
+      }
+      .navDesktop a:hover{
+        color: var(--text);
+        border-color: rgba(255,255,255,.10);
+        background: rgba(255,255,255,.04);
+      }
+
+      @media (min-width: 980px){
+        .navDesktop{ display:flex; }
+      }
+
+      /* =========================
+         Main layout
+         ========================= */
+      main{
+        flex:1;
+      }
+
+      /* Make page feel “full” on mobile */
+      .hero{
+        padding: 18px 0 10px;
+      }
+
+      .gridHero{
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 14px;
+        align-items:start;
+      }
+      @media (max-width: 980px){
+        .gridHero{ grid-template-columns: 1fr; }
+      }
+
+      /* =========================
+         App-like cards
+         ========================= */
+      .card{
+        border-radius: var(--r2);
+        background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+        border: 1px solid rgba(255,255,255,.08);
+        box-shadow: var(--shadow2);
+        overflow:hidden;
+      }
+      .cardInner{
+        padding: 18px 16px;
+      }
+
+      .cardStrong{
+        background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        border-color: rgba(255,255,255,.10);
+      }
+
+      .h1{
+        margin:0;
+        font-size: clamp(26px, 4.6vw, 44px);
+        line-height:1.08;
+        letter-spacing:-.01em;
+        font-weight: 850;
+      }
+      .sub{
+        margin: 12px 0 0;
+        color: var(--muted);
+        line-height:1.75;
+        font-size: 15.5px;
+        max-width: 60ch;
+      }
+
+      /* Pills (like app chips) */
+      .pills{
+        margin-top: 14px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+      }
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.035);
+        color: var(--muted);
+        font-size: 13.5px;
+      }
+      .dot{
+        width:8px;height:8px;border-radius:99px;
+        background: rgba(255,255,255,.34);
+      }
+      .dot.blue{ background: rgba(111,168,255,.95); }
+      .dot.soft{ background: rgba(255,255,255,.28); }
+
+      /* Buttons (rounded, app-like) */
+      .ctaRow{
+        margin-top: 16px;
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding: 12px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.05);
+        color: var(--text);
+        font-weight: 700;
+        font-size: 14.5px;
+        cursor:pointer;
+        transition: transform .06s ease, background .15s ease, border-color .15s ease;
+      }
+      .btn:hover{
+        background: rgba(255,255,255,.08);
+        border-color: rgba(255,255,255,.16);
+      }
+      .btn:active{ transform: translateY(1px); }
+
+      .btnPrimary{
+        background: rgba(111,168,255,.18);
+        border-color: rgba(111,168,255,.38);
+      }
+      .btnPrimary:hover{
+        background: rgba(111,168,255,.24);
+        border-color: rgba(111,168,255,.48);
+      }
+
+      .hint{
+        color: var(--muted2);
+        font-size: 13px;
+      }
+
+      /* =========================
+         Example post (looks like feed card)
+         ========================= */
+      .exampleHeader{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom: 12px;
+      }
+
+      .exAvatar{
+        width:44px;height:44px;border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        overflow:hidden;background:#0b0f16;
+        flex:0 0 auto;
+      }
+      .exAvatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+      .exMeta{
+        display:flex; flex-direction:column; line-height:1.15;
+        min-width:0;
+      }
+      .exName{
+        font-weight: 850;
+        font-size: 16px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .exDate{
+        color: var(--muted2);
+        font-size: 12.5px;
+        margin-top: 4px;
+      }
+
+      .exImage{
+        width:100%;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,.08);
+        overflow:hidden;
+        background: rgba(0,0,0,.25);
+      }
+      .exImage img{
+        width:100%;
+        height:auto;
+        display:block;
+      }
+
+      .exCaption{
+        margin: 12px 0 0;
+        font-size: 16px;
+        line-height:1.55;
+        font-weight: 750;
+      }
+
+      .exTools{
+        margin-top: 12px;
+        display:flex;
+        align-items:center;
+        gap:12px;
+      }
+
+      .mini{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.035);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .exActions{
+        margin-top: 8px;
+        display:flex;
+        gap:12px;
+      }
+      .actionBox{
+        flex:1;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        padding: 14px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.03);
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .heart{
+        width:46px;height:46px;border-radius:18px;
+        display:flex;align-items:center;justify-content:center;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.03);
+      }
+      .heart span{
+        font-size: 20px;
+        line-height:1;
+      }
+
+      /* =========================
+         Sections
+         ========================= */
+      .section{
+        padding: 14px 0 0;
+      }
+
+      .sectionPad{
+        padding: 16px;
+      }
+
+      .kicker{
+        margin:0 0 10px;
+        letter-spacing:.12em;
+        text-transform:uppercase;
+        font-size: 12px;
+        color: rgba(255,255,255,.72);
+      }
+
+      .steps{
+        margin:0;
+        padding:0;
+        list-style:none;
+        display:grid;
+        gap:10px;
+      }
+      .step{
+        padding: 14px 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.03);
+        color: rgba(255,255,255,.86);
+        font-size: 14.5px;
+        line-height:1.55;
+      }
+      .step b{ color: rgba(111,168,255,.95); }
+
+      .grid3{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      @media (max-width: 980px){
+        .grid3{ grid-template-columns: 1fr; }
+      }
+
+      .miniCard{
+        padding: 16px 16px;
+        border-radius: var(--r);
+        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.03);
+      }
+      .miniCard h3{
+        margin:0 0 8px;
+        font-size: 16px;
+        font-weight: 850;
+      }
+      .miniCard p{
+        margin:0;
+        color: rgba(255,255,255,.80);
+        line-height:1.65;
+        font-size: 14.5px;
+      }
+
+      /* Access form */
+      .formRow{
+        margin-top: 10px;
+        display:flex;
+        gap:10px;
+        align-items:stretch;
+      }
+      @media (max-width: 520px){
+        .formRow{ flex-direction:column; }
+      }
+
+      .input{
+        flex:1;
+        padding: 13px 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(255,255,255,.03);
+        color: var(--text);
+        font-size: 14.5px;
+        outline:none;
+      }
+      .input:focus{
+        border-color: rgba(111,168,255,.42);
+        box-shadow: 0 0 0 3px rgba(111,168,255,.12);
+      }
+
+      details{
+        margin-top: 14px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        padding-top: 12px;
+      }
+      summary{
+        cursor:pointer;
+        color: rgba(255,255,255,.88);
+        font-weight: 800;
+        font-size: 14.5px;
+        list-style:none;
+      }
+      summary::-webkit-details-marker{ display:none; }
+
+      .note{
+        margin-top: 10px;
+        color: var(--muted2);
+        font-size: 13px;
+        line-height:1.65;
+      }
+
+      /* =========================
+         Footer
+         ========================= */
+      footer{
+        margin-top: 22px;
+        border-top: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.02);
+      }
+      .footerInner{
+        padding: 18px 0;
+        display:flex;
+        gap: 10px 14px;
+        flex-wrap:wrap;
+        align-items:center;
+        justify-content:space-between;
+        color: var(--muted2);
+        font-size: 13px;
+      }
+      .footerLinks{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+      }
+      .footerLinks a{
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.08);
+        background: rgba(255,255,255,.03);
+        color: var(--muted);
+      }
+      .footerLinks a:hover{
+        color: var(--text);
+        background: rgba(255,255,255,.06);
+      }
+
+      /* Anchors: scroll under sticky header */
+      section[id]{
+        scroll-margin-top: calc(var(--headerH) + 14px);
+      }
+
+      @media (prefers-reduced-motion: reduce){
+        *{ scroll-behavior:auto !important; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <!-- HEADER -->
+      <header>
+        <div class="container">
+          <div class="headerInner">
+            <a class="brand" href="#top" aria-label="ACCVERSE home">
+              <!-- Replace with your real app/avatar image if you want -->
+              <div class="brandAvatar" aria-hidden="true">
+                <!-- If you have a logo file, put it in /assets and change src -->
+                <img src="assets/accverse-app-avatar.png" alt="" onerror="this.style.display='none'" />
+              </div>
+              <div class="brandText">
+                <div class="brandTitle">ACCVERSE</div>
+                <div class="brandSub">V1 · closed test</div>
+              </div>
+            </a>
+
+             
+
+            <div class="headerActions" aria-label="Actions">
+              <!-- Small “bell” like the app (decorative only on site) -->
+              <button class="iconBtn badge" type="button" aria-label="Notifications (placeholder)">
+                <!-- simple bell -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Z" fill="rgba(255,255,255,.78)"/>
+                  <path d="M18 16v-5a6 6 0 1 0-12 0v5l-2 2h16l-2-2Z" stroke="rgba(255,255,255,.78)" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+          
+        
+
+            
+
+              <!-- Menu (mobile) -->
+              <button id="menuBtn" class="iconBtn" type="button" aria-label="Menu">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(255,255,255,.84)" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="menuPanel" class="menuPanel" aria-label="Mobile menu">
+          <div class="container">
+            <div class="menuGrid">
+              <a class="menuLink" href="#how">How it works</a>
+              <a class="menuLink" href="#v1">See V1 features</a>
+              <a class="menuLink" href="#access">Request access</a>
+            
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <main id="top">
+        <div class="container">
+          <!-- HERO -->
+          <section class="hero">
+            <div class="gridHero">
+              <!-- LEFT: pitch -->
+              <div class="card">
+                <div class="cardInner">
+                  <h1 class="h1">Animals have profiles. Humans post as representatives.</h1>
+                  <p class="sub">
+                    ACCVERSE is a calm, animal-first app where posts are simple traces of real life —
+                    without trends, without pressure, without performance culture.
+                  </p>
+
+                  <div class="pills" aria-label="Key points">
+                    <span class="pill"><span class="dot blue"></span> Animal-first identity</span>
+                    <span class="pill"><span class="dot blue"></span> Global feed + translate</span>
+                    <span class="pill"><span class="dot soft"></span> No boosting / no trends</span>
+                    <span class="pill"><span class="dot soft"></span> English-first in V1</span>
+                  </div>
+
+                  <div class="ctaRow">
+                    <a class="btn btnPrimary" href="#access">Request access</a>
+                    <a class="btn" href="#v1">See V1 features</a>
+                    <span class="hint">Invite-only (Google Play closed test)</span>
+                  </div>
+
+                  <div class="note">
+                    ACCVERSE is intentionally quiet. The goal is continuity and respect — not virality.
+                  </div>
+                </div>
+              </div>
+               <!-- RIGHT: example post (app-like) -->
+              <aside class="card cardStrong" aria-label="Example post">
+                <div class="cardInner">
+                  <p class="kicker">Example post</p>
+
+                  <div class="exampleHeader">
+                    <div class="exAvatar" aria-hidden="true">
+                      <img src="assets/example-avatar.jpg" alt="" onerror="this.style.display='none'" />
+                    </div>
+                    <div class="exMeta">
+                      <div class="exName">Neo</div>
+                      <div class="exDate">Miami · morning walk · 2 min</div>
+                    </div>
+                  </div>
+
+                  <!-- Put your real photo in assets/ and name it example-post.jpg (or change src) -->
+                  <div class="exImage">
+                    <img src="assets/example-post.jpg" alt="Example animal photo" onerror="this.closest('.exImage').style.display='none'" />
+                  </div>
+
+                  <div class="exCaption">
+                    “Short calm walk today. Neo stopped twice to observe dogs at distance. No stress, steady pace.”
+                  </div>
+
+                  <div class="exTools" aria-label="Tools">
+                    <span class="mini">
+                      <!-- globe icon -->
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="rgba(255,255,255,.70)" stroke-width="1.6"/>
+                        <path d="M3 12h18" stroke="rgba(255,255,255,.55)" stroke-width="1.6"/>
+                        <path d="M12 3c2.2 2.6 3.3 5.6 3.3 9S14.2 18.4 12 21C9.8 18.4 8.7 15.4 8.7 12S9.8 5.6 12 3Z" stroke="rgba(255,255,255,.55)" stroke-width="1.6"/>
+                      </svg>
+                      Translate
+                    </span>
+                  </div>
+
+                  <div class="exActions" aria-label="Actions">
+                    <div class="actionBox">
+                      <div class="heart"><span>❤</span></div>
+                      <div>3 likes</div>
+                    </div>
+                    <div class="actionBox">
+                      <div style="font-size:20px">💬</div>
+                      <div>0 comments</div>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <!-- HOW -->
+          <section class="section" id="how">
+            <div class="card">
+              <div class="cardInner">
+                <p class="kicker">How it works</p>
+                <ul class="steps">
+                  <li class="step"><b>1.</b> Create a profile for a real animal (photo + species + name).</li>
+                  <li class="step"><b>2.</b> Select which animal is speaking before posting or commenting.</li>
+                  <li class="step"><b>3.</b> Share a photo or a short observation (English in V1).</li>
+                  <li class="step"><b>4.</b> Explore a global feed. Translate when needed.</li>
+                  <li class="step"><b>5.</b> Like and comment — always as an animal profile.</li>
+                </ul>
+                <div class="note">
+                  Posts should describe what is observable. Avoid role-play, fictional personas, or human-centered staging.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- V1 -->
+          <section class="section" id="v1">
+            <div class="card">
+              <div class="cardInner">
+                <p class="kicker">V1 features</p>
+                <div class="grid3">
+                  <div class="miniCard">
+                    <h3>Feed</h3>
+                    <p>Global feed, translation button, like & comment counters.</p>
+                  </div>
+                  <div class="miniCard">
+                    <h3>Create post</h3>
+                    <p>Select the animal profile, add image + caption, publish with minimal friction.</p>
+                  </div>
+                  <div class="miniCard">
+                    <h3>Profiles</h3>
+                    <p>Create multiple animals, edit avatars and descriptions, view profile posts.</p>
+                  </div>
+                </div>
+
+                <div style="height:14px"></div>
+
+                <p class="kicker">Boundaries</p>
+                <div class="grid3">
+                  <div class="miniCard">
+                    <h3>Not a content game</h3>
+                    <p>No viral optimization. Calm by design.</p>
+                  </div>
+                  <div class="miniCard">
+                    <h3>Real animals only</h3>
+                    <p>Profiles represent real animals. No fictional characters or humans.</p>
+                  </div>
+                  <div class="miniCard">
+                    <h3>Observation-first</h3>
+                    <p>Describe context. Avoid projecting human emotions or inventing narratives.</p>
+                  </div>
+                </div>
+
+                <div class="note">
+                  Moderation is evolving. Out-of-scope content may be hidden to protect the platform’s purpose.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ACCESS -->
+          <section class="section" id="access">
+            <div class="card cardStrong">
+              <div class="cardInner">
+                <p class="kicker">Access (closed test)</p>
+                <div style="color:rgba(255,255,255,.86);line-height:1.7">
+                  ACCVERSE is currently invite-only on Google Play. Leave your email to receive test access.
+                </div>
+
+                <form style="margin-top:12px" action="#" method="post" onsubmit="return false;">
+                  <div class="formRow">
+                    <input class="input" type="email" name="email" placeholder="your@email.com" autocomplete="email" required />
+                    <button class="btn btnPrimary" type="submit">Request invite</button>
+                  </div>
+                  <div class="note">
+                    Your email is used only to grant test access and respond if needed.
+                  </div>
+                </form>
+
+                <details>
+                  <summary>Vision (optional)</summary>
+                  <div style="margin-top:10px;color:rgba(255,255,255,.84);line-height:1.7;font-size:14.5px">
+                    ACCVERSE expands step by step. The long-term goal is continuity of animal identity — beyond changes in human context.
+                    <div style="height:12px"></div>
+                    <div class="grid3">
+                      <div class="miniCard">
+                        <h3>V2 — Private modes</h3>
+                        <p>Controlled sharing, private profiles, clearer continuity tools.</p>
+                      </div>
+                      <div class="miniCard">
+                        <h3>V3 — Professionals</h3>
+                        <p>Modules for vets, shelters, educators, transport, retail, and more.</p>
+                      </div>
+                      <div class="miniCard">
+                        <h3>Beyond</h3>
+                        <p>International by default. Careful releases, no hype.</p>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+
+                <div class="note">
+                  Note: ACCVERSE does not provide medical, legal, or emergency support.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Spacer so user doesn’t hit footer immediately on mobile -->
+          <div style="height:22px"></div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer>
+        <div class="container">
+          <div class="footerInner">
+            <div>© <span id="y"></span> ACCVERSE</div>
+            <div class="footerLinks">
+              <a href="#how">How it works</a>
+              <a href="#v1">V1</a>
+              <a href="#access">Access</a>
+              <a href="contact.html">Contact</a>
+              <a href="support.html">Support</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <script>
+      // year
+      document.getElementById("y").textContent = new Date().getFullYear();
 
-  </div>
-</header>
+      // menu
+      const btn = document.getElementById("menuBtn");
+      const panel = document.getElementById("menuPanel");
 
+      btn.addEventListener("click", () => {
+        panel.classList.toggle("open");
+      });
 
-
-<main class="hero">
-  <div class="prose">
-    <h2>Animals have an identity. <br>
-      Humans are their voice.</h2>
-
-    <p class="subtitle">
-      ACCVERSE is an animal-first digital ecosystem where animals exist as subjects — not as content.
-    </p>
-
-    <p>
-      Animals live, travel, meet and change environments.
-    </p>
-
-    <p>
-      Every encounter leaves a trace in an animal’s life.
-    </p>
-
-    <p class="conclusion">
-      ACCVERSE exists to preserve that continuity beyond human visibility.
-    </p>
-
-    <p class="status">
-      Currently in private testing
-    </p>
-  </div>
-</main>
-
-<footer>
-  <a href="user-charter.html">User Charter</a>
-</footer>
-
-</body>
+      // close menu when clicking a link
+      panel.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (a) panel.classList.remove("open");
+      });
+    </script>
+  </body>
 </html>
+
+
+
